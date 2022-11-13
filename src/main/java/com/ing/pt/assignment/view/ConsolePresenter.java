@@ -10,4 +10,9 @@ public class ConsolePresenter implements MessagePresenter {
             System.out.println(message);
         }
     }
+
+    @Override
+    public void showGraphic(Object object) {
+        showMessage(object.toString(), false);
+    }
 }

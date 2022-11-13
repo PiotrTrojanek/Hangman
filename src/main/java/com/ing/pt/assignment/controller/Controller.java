@@ -30,7 +30,7 @@ public class Controller {
 
     private void singleTry(String word) {
         int guessesLeft = 7;
-        boolean succedd = false;
+        boolean succeed = false;
         Set<Character> guessedLetters = new HashSet<>();
         while (stillHaveGuesses(guessesLeft)) {
             view.printGuessesLeft(guessesLeft);
@@ -43,13 +43,15 @@ public class Controller {
                 guessedLetters.add(guessedLetter);
             } else {
                 view.printIncorrectGuess();
+                view.printHangmanStage(8 - guessesLeft);
                 guessesLeft--;
             }
             if (checkIfFinish(word, guessedLetters)) {
+                succeed = true;
                 break;
             }
         }
-        if (succedd) {
+        if (succeed) {
             view.printCongratulations(word);
         } else {
             view.printMaybeNextTime(word);

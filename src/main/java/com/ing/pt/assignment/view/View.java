@@ -20,9 +20,10 @@ public class View {
             The word was: %s""";
     private static final String GUESSES_LEFT = "You have %s guesses left.";
     private static final String CORRECT_GUESS = "Well done, this is correct letter.";
-    private static final String INCORRECT_GUESS = "Letter incorrect, try another one.";
+    private static final String INCORRECT_GUESS = "Letter incorrect.";
     private static final String SHOULD_CONTINUE = "If you want to try again type [y]: ";
 
+    private final HangmanProvider hangmanProvider;
     private final MessagePresenter presenter;
 
     public void printWelcomeMessage() {
@@ -71,5 +72,9 @@ public class View {
 
     public void printShouldContinue() {
         presenter.showMessage(SHOULD_CONTINUE, true);
+    }
+
+    public void printHangmanStage(int stage) {
+        presenter.showGraphic(hangmanProvider.stage(stage));
     }
 }

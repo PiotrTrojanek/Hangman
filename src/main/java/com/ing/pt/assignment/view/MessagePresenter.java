@@ -4,4 +4,5 @@ public interface MessagePresenter {
 
     void showMessage(String message, boolean expectInput);
 
+    void showGraphic(Object object);
 }

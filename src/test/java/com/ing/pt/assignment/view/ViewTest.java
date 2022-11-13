@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Set;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -16,12 +17,14 @@ class ViewTest {
 
     @Mock
     private MessagePresenter messagePresenter;
+    @Mock
+    private HangmanProvider hangmanProvider;
 
     private View subject;
 
     @BeforeEach
     public void setup() {
-        subject = new View(messagePresenter);
+        subject = new View(hangmanProvider, messagePresenter);
     }
 
     @Test
@@ -110,7 +113,7 @@ class ViewTest {
         //when
         subject.printIncorrectGuess();
         //then
-        verify(messagePresenter).showMessage("Letter incorrect, try another one.", false);
+        verify(messagePresenter).showMessage("Letter incorrect.", false);
     }
 
     @Test
@@ -119,5 +122,15 @@ class ViewTest {
         subject.printShouldContinue();
         //then
         verify(messagePresenter).showMessage("If you want to try again type [y]: ", true);
+    }
+
+    @Test
+    void testPrintHangmanStage() {
+        //given
+        when(hangmanProvider.stage(1)).thenReturn("test");
+        //when
+        subject.printHangmanStage(1);
+        //then
+        verify(messagePresenter).showGraphic("test");
     }
 }

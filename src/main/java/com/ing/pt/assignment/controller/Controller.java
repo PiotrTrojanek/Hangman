@@ -15,20 +15,22 @@ public class Controller {
     private final View view;
     private final Model model;
 
-    public void startGame() {
+    public boolean startGame() {
         boolean isDone = false;
         view.printWelcomeMessage();
+        boolean succeed = false;
         while (!isDone) {
             String word = model.generateWord();
-            singleTry(word);
+            succeed = singleTry(word);
             view.printShouldContinue();
             if (!model.shouldTryAgain()) {
                 isDone = true;
             }
         }
+        return succeed;
     }
 
-    private void singleTry(String word) {
+    private boolean singleTry(String word) {
         int guessesLeft = 7;
         boolean succeed = false;
         Set<Character> guessedLetters = new HashSet<>();
@@ -56,6 +58,7 @@ public class Controller {
         } else {
             view.printMaybeNextTime(word);
         }
+        return succeed;
     }
 
     private boolean stillHaveGuesses(int guessesLeft) {
